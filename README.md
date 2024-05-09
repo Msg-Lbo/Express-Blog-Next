@@ -1,9 +1,36 @@
-# Vue 3 + TypeScript + Vite
+## Express Blog Next
+### 该项目基于Vite + Vue3 + TypeScript 开发的博客系统
+#### 整个项目使用到的技术：
+#### 前端：
+- Vite
+- Vue3
+- TypeScript
+- Naive UI
+- Axios
+- Tailwind CSS
+#### 后端：
+- Express
+- Mysql
+### 项目目录结构
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### 项目运行
+>pnpm(推荐)
+``` bash
+# 安装依赖
+pnpm install
+# 开发环境
+pnpm run dev
+# 生产环境
+pnpm run build
+```
+>npm
+``` bash
+# 安装依赖
+npm install
+# 开发环境
+npm run dev
+# 生产环境
+npm run build
+```
 
-## Recommended Setup
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
-
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
