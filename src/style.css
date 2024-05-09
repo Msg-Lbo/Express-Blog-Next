@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  /* @apply duration-300 ease-in-out; */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: #eee;
+}
+
+time {
+  display: block;
+}
+
+.n-divider:not(.n-divider--vertical) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
