@@ -1,6 +1,6 @@
 import { useUserInfoStore } from '@/store/user'
-import { createRouter, createWebHashHistory } from 'vue-router'
-
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { useSettingsStore } from "@/store/settings";
 
 const routers = [
     {
@@ -54,6 +54,16 @@ const routers = [
                 }
             },
         ]
+    },
+    {
+        path: '/feed',
+        component: () => { },
+        beforeEnter: () => {
+            const settingsStore = useSettingsStore();
+            const rss = computed(() => settingsStore.rss!);
+            // 新建页面跳转rss.value.FeedUrl
+            window.open(rss.value.FeedUrl, '_blank');
+        }
     },
     {
         path: '/manager',
@@ -162,8 +172,9 @@ const routers = [
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    // history: createWebHistory(),
+    // history: createWebHashHistory(),
+    history: createWebHistory(),
+
     routes: routers
 })
 

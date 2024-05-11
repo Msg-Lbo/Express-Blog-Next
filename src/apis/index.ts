@@ -28,11 +28,11 @@ httpInstance.interceptors.request.use((config) => {
     return Promise.reject(error)
 })
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV == 'development') {
     httpInstance.defaults.baseURL = import.meta.env.VITE_BASE_URL_DEV;
     httpInstance.defaults.url = import.meta.env.VITE_BASE_URL_DEV
 } else {
-    httpInstance.defaults.baseURL = import.meta.env.VITE_BASE_URL + '/api/v1';
+    httpInstance.defaults.baseURL = import.meta.env.VITE_BASE_URL;
     httpInstance.defaults.url = import.meta.env.VITE_BASE_URL
 }
 

@@ -72,7 +72,9 @@
               </n-button>
               <n-popconfirm @positive-click="deleteCategory(navigation.id)" v-else>
                 <template #trigger>
-                  <n-button type="error" size="small" text>删除</n-button>
+                  <n-button type="error" size="small" :disabled="disabledNav.includes(navigation.label)" text
+                    >删除</n-button
+                  >
                 </template>
                 <span>确定删除这个导航?</span>
               </n-popconfirm>
@@ -102,6 +104,7 @@ const navigationForm = ref<Navigation>({
   status: 0,
   sort: 0,
 });
+const disabledNav = ref<string[]>(["首页", "关于", "友链"]);
 const message = useMessage();
 const navigationList = ref<Navigation[]>();
 const navigationActiveEdit = ref<number | null>(null);

@@ -6,7 +6,6 @@ import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 import { resolve } from 'path'
-
 const pathResolve = (dir: string): any => {
   return resolve(__dirname, ".", dir)
 }
@@ -22,7 +21,7 @@ export default defineConfig({
     proxy: {
       '/api/v1': {
         target: 'http://127.0.0.1:9090',
-        changeOrigin: true,
+        changeOrigin: false,
       }
     }
   },

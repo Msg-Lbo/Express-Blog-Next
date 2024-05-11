@@ -18,7 +18,6 @@
       <div class="footer">
         <footer-view
           :GongAn="settings?.GongAn"
-          :Ipc="settings?.Ipc"
           :Icp="settings?.Icp"
           :MoeIcp="settings?.MoeIcp"
         ></footer-view>
@@ -45,6 +44,7 @@ const disabledPath = ["detail", "login", "about"];
 const sider = ref<any>();
 onMounted(() => {
   settingsStore.getSettings();
+  settingsStore.getRss();
 });
 </script>
 
