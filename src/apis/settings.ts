@@ -4,7 +4,6 @@ import { $http } from ".";
 export const saveSettingsApi = (data: {
     Ico: string,
     Logo: string,
-    Avatar: string,
     LogoText: string,
     LogoText2: string,
     GongAn: string,
@@ -59,5 +58,27 @@ export const saveRssApi = (data: {
         url: "/feed/save-rss",
         method: "POST",
         data,
+    });
+}
+
+// 保存友链模板
+export const saveFriendTemplateApi = (FriendTemplate: string) => {
+    return $http({
+        url: "/settings/save-friend-template",
+        method: "POST",
+        data: {
+            FriendTemplate
+        },
+    });
+}
+
+// 保存关于
+export const saveAboutApi = (About: string) => {
+    return $http({
+        url: "/settings/save-about",
+        method: "POST",
+        data: {
+            About
+        },
     });
 }

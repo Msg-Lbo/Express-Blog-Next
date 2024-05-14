@@ -41,3 +41,28 @@ export const getUserInfoApi = async () => {
         method: 'GET'
     })
 }
+
+// 修改用户信息
+export const updateUserInfoApi = async (nickname: string, avatar: string, email: string) => {
+    return await $http({
+        url: '/user/update-userinfo',
+        method: 'POST',
+        data:{
+            nickname,
+            avatar,
+            email
+        }
+    })
+}
+
+// 修改密码
+export const updatePasswordApi = async (oldPassword: string, newPassword: string) => {
+    return await $http({
+        url: '/user/update-password',
+        method: 'POST',
+        data:{
+            oldPassword,
+            newPassword
+        }
+    })
+}

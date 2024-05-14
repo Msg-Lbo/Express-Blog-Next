@@ -2,13 +2,12 @@
   <header class="admin-header">
     <h1>Admin Dashboard</h1>
     <n-dropdown :options="options" :on-select="handleSelect" >
-      <n-avatar class="flex items-center cursor-pointer" round size="large" :src="settings.Avatar" />
+      <n-avatar class="flex items-center cursor-pointer" round size="large" :src="userInfo.avatar" />
     </n-dropdown>
   </header>
 </template>
 
 <script setup lang="ts">
-import { computed, h, ref } from "vue";
 import type { Component } from "vue";
 import { NIcon } from "naive-ui";
 import { Logout } from "@icon-park/vue-next";
@@ -26,6 +25,7 @@ const props = defineProps({
   },
   userInfo: {
     type: Object,
+    required: true,
   },
 });
 
@@ -37,7 +37,7 @@ const options = ref([
   },
 ]);
 
-const settings = computed(() => props.settings);
+const userInfo = computed(() => props.userInfo);
 const emits = defineEmits(["logout"]);
 const handleSelect = (key: string) => {
   if (key === "logout") {

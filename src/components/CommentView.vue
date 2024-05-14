@@ -106,8 +106,8 @@ const commentForm = ref<CommentForm>({
   content: "",
   create_time: new Date().getTime(),
   email: userInfo.value?.email || "",
-  nickname: userInfo.value?.nickname || "",
-  identity: userInfo.value?.identity ? userInfo.value.identity : "",
+  nickname: userInfo.value?.nickname,
+  identity: userInfo.value?.identity,
   parent_id: 0,
   code: "",
 });
@@ -144,6 +144,8 @@ const getCaptcha = async () => {
 // 发送评论
 const sendComment = async () => {
   commentForm.value.article_id = id.value;
+  // console.log(commentForm.value);
+  // return;
   // 缓存昵称和邮箱
   if (userInfo.value) {
     localStorage.setItem("nickname", userInfo.value.nickname);

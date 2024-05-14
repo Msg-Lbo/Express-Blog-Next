@@ -12,7 +12,7 @@
           <router-view></router-view>
         </div>
         <div class="right-content" v-if="!disabledPath.includes(mainRouter)">
-          <sider-view ref="sider" :Avatar="settings?.Avatar"></sider-view>
+          <sider-view ref="sider" :Avatar="userinfo.avatar"></sider-view>
         </div>
       </div>
       <div class="footer">
@@ -31,7 +31,9 @@
 import { computed, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useSettingsStore } from "@/store/settings";
-
+import { useUserInfoStore } from "@/store/user";
+const userInfoStore = useUserInfoStore();
+const userinfo = computed(() => userInfoStore.userInfo!);
 const settingsStore = useSettingsStore();
 const settings = computed(() => settingsStore.settings);
 const route = useRoute();
@@ -43,8 +45,8 @@ const disabledPath = ["detail", "login", "about"];
 
 const sider = ref<any>();
 onMounted(() => {
-  settingsStore.getSettings();
-  settingsStore.getRss();
+  settingsStore.handleGetSettings();
+  settingsStore.handleGetRss();
 });
 </script>
 
