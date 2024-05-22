@@ -1,5 +1,5 @@
 import { useUserInfoStore } from '@/store/user'
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { useSettingsStore } from "@/store/settings";
 
 const routers = [
@@ -56,6 +56,12 @@ const routers = [
         ]
     },
     {
+        path: '/install',
+        component: () => import('@/views/install/install.vue'),
+        beforeEnter: () => {
+        }
+    },
+    {
         path: '/feed',
         component: () => { },
         beforeEnter: () => {
@@ -75,27 +81,28 @@ const routers = [
         children: [
             {
                 path: '/manager',
-                name: 'dashboard',
-                component: () => import('@/views/admin/Dashboard.vue'),
+                redirect: '/manager/article-list',
                 meta: {
-                    title: '仪表盘'
-                }
-            },
-            {
-                path: 'article-list',
-                name: 'article-list',
-                component: () => import('@/views/admin/ArticleList.vue'),
-                meta: {
-                    title: '文章列表'
-                }
-            },
-            {
-                path: 'edit-article',
-                name: 'edit-article',
-                component: () => import('@/views/admin/EditArticle.vue'),
-                meta: {
-                    title: '编辑文章'
-                }
+                    title: '文章管理'
+                },
+                children: [
+                    {
+                        path: 'article-list',
+                        name: 'article-list',
+                        component: () => import('@/views/admin/ArticleList.vue'),
+                        meta: {
+                            title: '文章列表'
+                        }
+                    },
+                    {
+                        path: 'edit-article',
+                        name: 'edit-article',
+                        component: () => import('@/views/admin/EditArticle.vue'),
+                        meta: {
+                            title: '编辑文章'
+                        }
+                    },
+                ]
             },
             {
                 path: 'category-manager',
@@ -103,6 +110,14 @@ const routers = [
                 component: () => import('@/views/admin/CategoryManager.vue'),
                 meta: {
                     title: '分类管理'
+                }
+            },
+            {
+                path: 'image-manager',
+                name: 'image-manager',
+                component: () => import('@/views/admin/ImageManager.vue'),
+                meta: {
+                    title: '图片管理'
                 }
             },
             {

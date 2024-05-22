@@ -9,6 +9,7 @@ export const saveSettingsApi = (data: {
     GongAn: string,
     Icp: string,
     MoeIcp: string,
+    Domain: string,
     LeftBgLight: string,
     LeftBgDark: string,
     AllowRegister: boolean,
@@ -80,5 +81,42 @@ export const saveAboutApi = (About: string) => {
         data: {
             About
         },
+    });
+}
+
+// 获取轮播图
+export const getCarouselApi = () => {
+    return $http({
+        url: "/settings/get-carousel",
+        method: "GET",
+    });
+}
+
+// 保存轮播图
+export const saveCarouselApi = (data: { title: string, cover: string, link: string }) => {
+    return $http({
+        url: "/settings/save-carousel",
+        method: "POST",
+        data
+    });
+}
+
+// 删除轮播图
+export const deleteCarouselApi = (id: number) => {
+    return $http({
+        url: "/settings/delete-carousel",
+        method: "POST",
+        data: {
+            id
+        },
+    });
+}
+
+// 更新轮播图
+export const updateCarouselApi = (data: { id: number, title: string, cover: string, link: string }) => {
+    return $http({
+        url: "/settings/update-carousel",
+        method: "POST",
+        data
     });
 }

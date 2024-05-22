@@ -4,10 +4,10 @@
       <h1 class="text-3xl font-bold mb-8">登录</h1>
       <n-form ref="formRef" :model="loginForm" :rules="rules">
         <n-form-item path="account" label="用户名" class="w-[400px]">
-          <n-input v-model:value="loginForm.account" @keydown.enter.prevent />
+          <n-input v-model:value="loginForm.account" />
         </n-form-item>
         <n-form-item path="password" label="密码" class="w-[400px]">
-          <n-input type="password" v-model:value="loginForm.password" @keydown.enter.prevent />
+          <n-input type="password" v-model:value="loginForm.password" @keydown.enter="handleSubmit"/>
         </n-form-item>
         <n-form-item>
           <n-button type="primary" class="w-[400px]" @click="handleSubmit">登录</n-button>

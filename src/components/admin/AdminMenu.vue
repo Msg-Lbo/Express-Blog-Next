@@ -1,14 +1,14 @@
 <template>
-  <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" @update:value="onUpdate" />
+  <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" :value="activeKey" @update:value="onUpdate" />
 </template>
 
 <script setup lang="ts">
 import { h, ref, Component } from "vue";
 import { NIcon } from "naive-ui";
 import {
-  Dashboard,
   Book,
   Pencil,
+  ImageFiles,
   AllApplication,
   TagOne,
   BookOpen,
@@ -22,12 +22,8 @@ const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) });
 };
 const router = useRouter();
+const activeKey = ref<string | null>(null);
 const menuOptions = ref([
-  {
-    label: "仪表盘",
-    key: "dashboard",
-    icon: renderIcon(Dashboard),
-  },
   {
     label: "文章管理",
     key: "article-manager",
@@ -49,6 +45,11 @@ const menuOptions = ref([
     label: "分类管理",
     key: "category-manager",
     icon: renderIcon(AllApplication),
+  },
+  {
+    label: "图片管理",
+    key: "image-manager",
+    icon: renderIcon(ImageFiles),
   },
   {
     label: "导航管理",
@@ -78,6 +79,7 @@ const menuOptions = ref([
 ]);
 
 const onUpdate = (value: string) => {
+  activeKey.value = value;
   router.push({ name: value });
 };
 </script>

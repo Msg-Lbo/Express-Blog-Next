@@ -1,4 +1,15 @@
-import { getSettingsApi, saveSettingsApi, getRssApi, saveRssApi, saveFriendTemplateApi, saveAboutApi } from "@/apis/settings";
+import {
+    getSettingsApi,
+    saveSettingsApi,
+    getRssApi,
+    saveRssApi,
+    saveFriendTemplateApi,
+    saveAboutApi,
+    getCarouselApi,
+    saveCarouselApi,
+    updateCarouselApi,
+    deleteCarouselApi
+} from "@/apis/settings";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import { createDiscreteApi } from "naive-ui";
@@ -13,6 +24,7 @@ interface Settings {
     GongAn: string;
     Icp: string;
     MoeIcp: string;
+    Domain: string;
     LeftBgLight: string;
     LeftBgDark: string;
     AllowRegister: boolean;
@@ -31,6 +43,13 @@ interface Rss {
     WebMaster: string;
 }
 
+interface Carousel {
+    id: number,
+    title: string,
+    cover: string,
+    link: string
+}
+
 export const useSettingsStore = defineStore("settings", () => {
     const settings = ref<Settings>({
         Title: "",
@@ -41,6 +60,7 @@ export const useSettingsStore = defineStore("settings", () => {
         GongAn: "",
         Icp: "",
         MoeIcp: "",
+        Domain: "",
         LeftBgLight: "",
         LeftBgDark: "",
         AllowRegister: false,
@@ -56,6 +76,19 @@ export const useSettingsStore = defineStore("settings", () => {
         CopyRight: "",
         WebMaster: "",
     })
+    const carousel = ref<Carousel[]>()
+
+
+    // 修改favicon
+    const setFavicon = (path: string) => {
+        console.log("favicon设置成功");
+
+        const link = document.querySelector("link[rel*='icon']") || document.createElement("link") as any;
+        link.type = "image/x-icon";
+        link.rel = "icon";
+        link.href = path;
+        document.getElementsByTagName("head")[0].appendChild(link);
+    }
 
     // 获取设置
     const handleGetSettings = async () => {
@@ -70,6 +103,7 @@ export const useSettingsStore = defineStore("settings", () => {
         const res = await saveSettingsApi(settings.value);
         if (res.code === 200) {
             message.success("保存成功");
+            setFavicon(settings.value.Ico);
         }
     }
 
@@ -106,15 +140,53 @@ export const useSettingsStore = defineStore("settings", () => {
         }
     }
 
+    // 获取轮播图
+    const handleGetCarousel = async () => {
+        const res = await getCarouselApi();
+        if (res.code === 200) {
+            carousel.value = res.data;
+        }
+    }
+
+    // 保存轮播图
+    const handleSaveCarousel = async (data: Carousel) => {
+        const res = await saveCarouselApi(data);
+        if (res.code === 200) {
+            message.success("保存成功");
+        }
+    }
+
+    // 更新轮播图
+    const handleUpdateCarousel = async (data: Carousel) => {
+        const res = await updateCarouselApi(data);
+        if (res.code === 200) {
+            message.success("更新成功");
+        }
+    }
+
+    // 删除轮播图
+    const handleDeleteCarousel = async (id: number) => {
+        const res = await deleteCarouselApi(id);
+        if (res.code === 200) {
+            message.success("删除成功");
+        }
+    }
+
     return {
         settings,
         rss,
+        carousel,
         handleGetSettings,
         handleSaveSettings,
         handleGetRss,
         handleSaveRss,
         handleSaveFriendTemplate,
-        handleSaveAbout
+        handleSaveAbout,
+        handleGetCarousel,
+        handleSaveCarousel,
+        handleUpdateCarousel,
+        handleDeleteCarousel,
+
     }
 },
     {

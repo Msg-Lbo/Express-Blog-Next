@@ -28,13 +28,10 @@ httpInstance.interceptors.request.use((config) => {
     return Promise.reject(error)
 })
 
-if (process.env.NODE_ENV == 'development') {
+// if (process.env.NODE_ENV == 'development') {
     httpInstance.defaults.baseURL = import.meta.env.VITE_BASE_URL_DEV;
     httpInstance.defaults.url = import.meta.env.VITE_BASE_URL_DEV
-} else {
-    httpInstance.defaults.baseURL = import.meta.env.VITE_BASE_URL;
-    httpInstance.defaults.url = import.meta.env.VITE_BASE_URL
-}
+// }
 
 // 响应拦截器
 export const $http = async (config: AxiosRequestConfig) => {
@@ -51,7 +48,14 @@ export const $http = async (config: AxiosRequestConfig) => {
             } else if (bkResponse.code === 401) {
                 errTitle = 'Unauthorized'
                 message.error(bkResponse.msg || "未授权或未登录")
-                userInfoStore.userInfo = undefined
+                userInfoStore.userInfo = {
+                    id: -1,
+                    account: "",
+                    avatar: "",
+                    email: "",
+                    identity: "",
+                    nickname: "",
+                }
                 router.push('/login')
             } else if (bkResponse.code === 403) {
                 errTitle = 'Forbidden'

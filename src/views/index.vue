@@ -4,8 +4,8 @@
       <header-view></header-view>
     </div>
     <div class="container">
-      <div class="banner" v-if="isHome">
-        <banner-view></banner-view>
+      <div class="carousel" v-if="isHome && Carousel && Carousel.length > 0">
+        <carousel-view :Carousel="Carousel"></carousel-view>
       </div>
       <div class="content">
         <div class="left-content relative">
@@ -16,11 +16,7 @@
         </div>
       </div>
       <div class="footer">
-        <footer-view
-          :GongAn="settings?.GongAn"
-          :Icp="settings?.Icp"
-          :MoeIcp="settings?.MoeIcp"
-        ></footer-view>
+        <footer-view :GongAn="settings?.GongAn" :Icp="settings?.Icp" :MoeIcp="settings?.MoeIcp"></footer-view>
       </div>
     </div>
   </main>
@@ -35,7 +31,8 @@ import { useUserInfoStore } from "@/store/user";
 const userInfoStore = useUserInfoStore();
 const userinfo = computed(() => userInfoStore.userInfo!);
 const settingsStore = useSettingsStore();
-const settings = computed(() => settingsStore.settings);
+const settings = computed(() => settingsStore.settings!);
+const Carousel = computed(() => settingsStore.carousel!);
 const route = useRoute();
 const isHome = computed(() => route.name === "home");
 // 取第一个
@@ -44,8 +41,10 @@ const mainRouter = computed(() => route.path.split("/")[1]);
 const disabledPath = ["detail", "login", "about"];
 
 const sider = ref<any>();
+
 onMounted(() => {
   settingsStore.handleGetSettings();
+  settingsStore.handleGetCarousel();
   settingsStore.handleGetRss();
 });
 </script>
@@ -57,7 +56,7 @@ onMounted(() => {
 
 .container {
   @apply max-w-[1210px] mx-auto mt-12 w-full h-[calc(100vh-80px)];
-  .banner {
+  .carousel {
     @apply mb-2 mx-auto h-[150px] rounded overflow-hidden;
     box-shadow: 1px 1px 5px rgb(0 0 0 / 5%);
   }
@@ -72,7 +71,8 @@ onMounted(() => {
     }
   }
   .footer {
-    @apply mt-4;
+    @apply mt-2 flex rounded justify-center items-center min-h-[70px] bg-[#3E4454] text-white text-sm;
+    box-shadow: 1px 1px 5px rgb(0 0 0 / 5%);
   }
 }
 

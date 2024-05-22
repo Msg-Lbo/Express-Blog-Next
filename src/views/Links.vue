@@ -18,6 +18,9 @@
       </div>
     </section>
     <section>
+      <MdPreview :modelValue="settings.FriendTemplate" previewTheme="github" />
+    </section>
+    <section>
       <n-divider dashed style="margin: 10px 0" />
       <comment-view articleId="friends"></comment-view>
     </section>
@@ -25,8 +28,11 @@
 </template>
 
 <script setup lang="ts">
+import { MdPreview } from "md-editor-v3";
+import "md-editor-v3/lib/style.css";
 import { getFriendByPassApi } from "@/apis/friend";
 import { onMounted, ref } from "vue";
+import { useSettingsStore } from "@/store/settings";
 
 interface Friend {
   name: string;
@@ -36,7 +42,9 @@ interface Friend {
 }
 
 const friendList = ref<Friend[]>([]);
+const settingsStore = useSettingsStore();
 
+const settings = computed(() => settingsStore.settings!);
 // 获取友链列表
 const getFriendList = async () => {
   const res = await getFriendByPassApi();

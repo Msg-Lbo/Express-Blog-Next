@@ -49,12 +49,12 @@ const activeKey = ref<string | null>(route.path);
 const manager = computed(() => [  
   {
     label: "管理",
-    alias: "/manager",
+    alias: "manager",
     status: userInfo.value?.identity === "admin",
   },
   {
     label: "登录",
-    alias: "/login",
+    alias: "login",
     status: userInfo.value?.identity !== "admin",
   },
 ]);
@@ -65,7 +65,6 @@ const menuOptions = ref();
 const getNavigations = async () => {
   const res = await getActiveNavigationsApi();
   if (res.code === 200) {
-    console.log(res.data);
     menuOptions.value = res.data;
   }
 
@@ -75,7 +74,7 @@ const toPath = (alias: string) => {
     window.open(alias);
   } else {
     activeKey.value = alias;
-    router.push(alias);
+    router.push(`/${alias}`);
   }
 };
 onMounted(() => {
