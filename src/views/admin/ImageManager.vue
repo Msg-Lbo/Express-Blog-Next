@@ -25,7 +25,7 @@
             </n-ellipsis>
           </td>
           <td class="value text-center" style="width: 100px">
-            <img :src="item.url" alt="图片" class="mx-auto my-0" style="width: 20px; height: 20px; object-fit: cover" />
+            <img :src="settings.Domain + item.url" alt="图片" class="mx-auto my-0" style="width: 20px; height: 20px; object-fit: cover" />
           </td>
           <td class="value text-center" style="width: 150px">
             <n-space align="center" justify="center">
@@ -135,12 +135,6 @@ const getImgList = async () => {
   const res = await getImageListApi(page.value, pageSize.value);
   if (res.code === 200) {
     imgList.value = res.data.list;
-    if (imgList.value) {
-      imgList.value.forEach((item) => {
-        item.url = settings.value.Domain + item.url;
-      });
-    }
-
   } else {
   }
 };
