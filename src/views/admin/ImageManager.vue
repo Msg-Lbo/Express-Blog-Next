@@ -59,7 +59,7 @@ const pageSize = ref(10);
 const imgList = ref<ImgItem[]>();
 const fileInputRef = ref<HTMLInputElement | null>(null);
 // 复制链接
-const handleCopyLink = async (url:string) => {
+const handleCopyLink = async (url: string) => {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     try {
       await navigator.clipboard.writeText(settings.value.Domain + url);
@@ -112,7 +112,7 @@ const onUploadImg = async (files: any, callback: (urls: string[]) => void) => {
   // console.log(res);
   callback(
     res.map((item) => {
-      return import.meta.env.VITE_IMAGE_URL + item[0];
+      return settings.value.Domain + item[0];
     })
   );
 };
@@ -135,6 +135,13 @@ const getImgList = async () => {
   const res = await getImageListApi(page.value, pageSize.value);
   if (res.code === 200) {
     imgList.value = res.data.list;
+    if (imgList.value) {
+      imgList.value.forEach((item) => {
+        item.url = settings.value.Domain + item.url;
+      });
+    }
+
+  } else {
   }
 };
 onMounted(() => {
@@ -145,6 +152,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 th {
   text-align: center;
+
   &:first-child {
     text-align: left;
   }
