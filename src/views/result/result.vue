@@ -57,7 +57,6 @@ const result = computed(() => {
 });
 
 const handleBack = () => {
-  router.go(-1);
   router.push("/");
 };
 </script>

@@ -10,8 +10,6 @@ export const saveSettingsApi = (data: {
     Icp: string,
     MoeIcp: string,
     Domain: string,
-    LeftBgLight: string,
-    LeftBgDark: string,
     AllowRegister: boolean,
 }) => {
     return $http({

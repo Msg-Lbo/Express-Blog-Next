@@ -65,10 +65,10 @@
             <n-form-item-gi :span="12" label="网站主标题" path="Title">
               <n-input v-model:value="settings.Title" placeholder="Input" />
             </n-form-item-gi>
-            <n-form-item-gi :span="12" label="网站Logo(一级)" path="LogoText">
+            <n-form-item-gi :span="12" label="网站Logo(一级)-暂时无用" path="LogoText">
               <n-input v-model:value="settings.LogoText" placeholder="Input" />
             </n-form-item-gi>
-            <n-form-item-gi :span="12" label="网站Logo(二级)" path="LogoText2">
+            <n-form-item-gi :span="12" label="网站Logo(二级)-暂时无用" path="LogoText2">
               <n-input v-model:value="settings.LogoText2" placeholder="Input" />
             </n-form-item-gi>
             <n-form-item-gi :span="12" label="网站Logo" path="Logo">
@@ -303,7 +303,7 @@ const handleFileUpload = (e: any) => {
     return;
   }
   onUploadImg(files, (urls) => {
-    userinfo.value.avatar = urls[0];
+    userinfo.value.avatar = settings.value.Domain + urls[0];
   });
 };
 

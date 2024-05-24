@@ -25,8 +25,6 @@ interface Settings {
     Icp: string;
     MoeIcp: string;
     Domain: string;
-    LeftBgLight: string;
-    LeftBgDark: string;
     AllowRegister: boolean;
     About: string;
     FriendTemplate: string;
@@ -61,8 +59,6 @@ export const useSettingsStore = defineStore("settings", () => {
         Icp: "",
         MoeIcp: "",
         Domain: "",
-        LeftBgLight: "",
-        LeftBgDark: "",
         AllowRegister: false,
         About: "",
         FriendTemplate: "",

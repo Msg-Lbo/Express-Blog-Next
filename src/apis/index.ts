@@ -68,7 +68,7 @@ export const $http = async (config: AxiosRequestConfig) => {
             } else if (bkResponse.code === 500) {
                 errTitle = 'Internal Server Error'
                 message.error(bkResponse.msg || "服务器内部错误")
-                router.push('/result/500')
+                // router.push('/result/500')
             } else {
                 errTitle = 'Unknow Error'
                 message.error(bkResponse.msg || "未知错误")

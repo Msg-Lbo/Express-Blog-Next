@@ -3,7 +3,7 @@
     <header>
       <div class="header-view">
         <div class="logo">
-          <img class="logo-img" src="https://q1.qlogo.cn/g?b=qq&nk=24130801&s=100" alt="logo" />
+          <img class="logo-img" :src="settings.Logo" alt="logo" />
           <router-link to="/">{{ settings?.Title }}</router-link>
         </div>
         <div class="menu-list">
