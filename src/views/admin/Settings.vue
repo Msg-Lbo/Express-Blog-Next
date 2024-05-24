@@ -319,7 +319,7 @@ const onUploadImg = async (files: any, callback: (urls: string[]) => void) => {
   // console.log(res);
   callback(
     res.map((item) => {
-      return import.meta.env.VITE_IMAGE_URL + item[0];
+      return settings.value.Domain + item[0];
     })
   );
 };
