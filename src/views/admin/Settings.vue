@@ -303,7 +303,7 @@ const handleFileUpload = (e: any) => {
     return;
   }
   onUploadImg(files, (urls) => {
-    userinfo.value.avatar = settings.value.Domain + urls[0];
+    userinfo.value.avatar = urls[0];
   });
 };
 

@@ -23,7 +23,7 @@ export const getImageListApi = (page: number, pageSize: number) => {
 }
 
 // 删除图片
-export const deleteImageApi = (image_id: string) => {
+export const deleteImageApi = (image_id: string | number) => {
     return $http({
         url: "/image/delete-image",
         method: "POST",

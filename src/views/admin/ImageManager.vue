@@ -30,7 +30,12 @@
           <td class="value text-center" style="width: 150px">
             <n-space align="center" justify="center">
               <n-button type="primary" text size="small" @click="handleCopyLink(item.url)">复制链接</n-button>
-              <n-button type="error" text size="small">删除</n-button>
+              <n-popconfirm @positive-click="handleDeleteImg(item.id)">
+                <template #trigger>
+                  <n-button type="error" size="small" text>删除</n-button>
+                </template>
+                <span>确定删除该图片?</span>
+              </n-popconfirm>
             </n-space>
           </td>
         </tr>
@@ -40,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { uploadImageApi, getImageListApi } from "@/apis/image";
+import { uploadImageApi, getImageListApi, deleteImageApi } from "@/apis/image";
 import { useMessage } from "naive-ui";
 import { useSettingsStore } from "@/store/settings";
 const settingsStore = useSettingsStore();
@@ -138,6 +143,14 @@ const getImgList = async () => {
   } else {
   }
 };
+// 删除图片
+const handleDeleteImg = async (id: number) => {
+  const res = await deleteImageApi(id);
+  if (res.code === 200) {
+    message.success("删除成功");
+    getImgList();
+  }
+}
 onMounted(() => {
   getImgList();
 });
