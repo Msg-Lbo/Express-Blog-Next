@@ -30,7 +30,7 @@
           <td class="value text-center" style="width: 150px">
             <n-space align="center" justify="center">
               <n-button type="primary" text size="small" @click="handleCopyLink(item.url)">复制链接</n-button>
-              <n-popconfirm @positive-click="handleDeleteImg(item.id)">
+              <n-popconfirm @positive-click="handleDeleteImg(item.image_id)">
                 <template #trigger>
                   <n-button type="error" size="small" text>删除</n-button>
                 </template>
