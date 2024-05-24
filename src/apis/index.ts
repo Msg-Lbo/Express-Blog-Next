@@ -6,7 +6,7 @@ import { useUserInfoStore } from '@/store/user';
 const { message, loadingBar } = createDiscreteApi(['message', 'loadingBar'])
 
 export const httpInstance = axios.create({
-    timeout: 6000,
+    timeout: 1000 * 15,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
     },

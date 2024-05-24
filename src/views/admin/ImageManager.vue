@@ -91,7 +91,7 @@ const handleFileUpload = (e: any) => {
     return;
   }
   // 如果图片是其他格式修改的后缀名
-  const isImg = /\.(jpg|jpeg|png|gif)$/i.test(fileName);
+  const isImg = /\.(jpg|jpeg|png|gif|ico|svg)$/i.test(fileName);
   if (!isImg) {
     message.error("请上传图片格式文件");
     return;
