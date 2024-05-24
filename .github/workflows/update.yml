@@ -22,8 +22,8 @@ jobs:
       
       - name: 🛠️ Build
         run: |
-          pnpm install
-          pnpm run build
+          npm install
+          npm run build
           
       - name: 🚁 部署到服务器
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
