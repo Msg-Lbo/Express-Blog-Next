@@ -97,6 +97,28 @@
             </n-space>
           </td>
         </tr>
+        <tr v-if="isAddLink">
+          <td class="value">
+            <n-input placeholder="输入网站名" v-model:value="linkForm.name" />
+          </td>
+          <td class="value">
+            <n-input placeholder="输入网站描述" v-model:value="linkForm.description" />
+          </td>
+          <td class="value">
+            <n-input placeholder="输入网站链接" v-model:value="linkForm.link" />
+          </td>
+          <td class="value">
+            <n-input placeholder="输入网站logo" v-model:value="linkForm.logo" />
+          </td>
+          <td class="value">
+            <n-input placeholder="输入网站邮箱" v-model:value="linkForm.email" />
+          </td>
+          <td class="value">
+            <n-button type="primary" size="small" text @click="saveFriend(linkForm)">
+              保存
+            </n-button>
+          </td>
+        </tr>
       </tbody>
     </n-table>
   </main>
