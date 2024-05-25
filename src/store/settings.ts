@@ -19,6 +19,7 @@ interface Settings {
     Title: string;
     Ico: string;
     Logo: string;
+    Avatar: string;
     LogoText: string;
     LogoText2: string;
     GongAn: string;
@@ -53,6 +54,7 @@ export const useSettingsStore = defineStore("settings", () => {
         Title: "",
         Ico: "",
         Logo: "",
+        Avatar: "",
         LogoText: "",
         LogoText2: "",
         GongAn: "",
