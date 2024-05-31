@@ -68,7 +68,9 @@ const routers = [
             const settingsStore = useSettingsStore();
             const rss = computed(() => settingsStore.rss!);
             // 新建页面跳转rss.value.FeedUrl
-            window.open(rss.value.FeedUrl, '_blank');
+            console.log(rss.value);
+
+            // window.open(rss.value.FeedUrl);
         }
     },
     {
