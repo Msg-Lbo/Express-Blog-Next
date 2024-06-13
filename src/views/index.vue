@@ -60,7 +60,7 @@ onMounted(() => {
   .content {
     @apply flex gap-2 mx-auto;
     .left-content {
-      @apply flex-1 bg-white rounded;
+      @apply w-full bg-white rounded;
       box-shadow: 1px 1px 5px rgb(0 0 0 / 5%);
     }
     .right-content {
