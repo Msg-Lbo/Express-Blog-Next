@@ -143,7 +143,7 @@ export const useSettingsStore = defineStore("settings", () => {
         handleSaveCarousel,
         handleUpdateCarousel,
         handleDeleteCarousel,
-
+        setFavicon
     }
 },
     {

@@ -12,6 +12,13 @@
 
 <script setup lang="ts">
 import { zhCN, dateZhCN } from "naive-ui";
+import { useSettingsStore } from "@/store/settings";
+const settingsStore = useSettingsStore();
+const settings = computed(() => settingsStore.settings!);
+
+onMounted(() => {
+  settingsStore.setFavicon(settings.value.Ico);
+});
 </script>
 
 <style lang="scss" scoped></style>
