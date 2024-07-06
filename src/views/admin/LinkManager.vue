@@ -29,11 +29,7 @@
             </span>
           </td>
           <td class="value cursor-text" @click="activeFriendEdit = friend.id">
-            <n-input
-              v-if="activeFriendEdit === friend.id"
-              placeholder="输入网站描述"
-              v-model:value="friend.description"
-            />
+            <n-input v-if="activeFriendEdit === friend.id" placeholder="输入网站描述" v-model:value="friend.description" />
             <span v-else>
               <n-ellipsis style="width: 240px">
                 {{ friend.description || "未填写" }}
@@ -79,13 +75,7 @@
               <n-button v-if="friend.status === 0" type="primary" size="small" text @click="allowFriend(friend)">
                 同意
               </n-button>
-              <n-button
-                v-if="activeFriendEdit === friend.id"
-                type="primary"
-                size="small"
-                text
-                @click="saveFriend(friend)"
-              >
+              <n-button v-if="activeFriendEdit === friend.id" type="primary" size="small" text @click="saveFriend(friend)">
                 保存
               </n-button>
               <n-popconfirm @positive-click="deleteFriend(friend.id)" v-else>
@@ -242,15 +232,19 @@ onMounted(() => {
 <style lang="scss" scoped>
 .title {
   @apply text-center;
+
   &:first-child {
     @apply text-left;
   }
 }
+
 .value {
   @apply text-left w-40;
 }
+
 .logo {
   @apply h-full;
+
   img {
     @apply m-auto;
   }

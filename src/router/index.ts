@@ -62,18 +62,6 @@ const routers = [
         }
     },
     {
-        path: '/feed',
-        component: () => { },
-        beforeEnter: () => {
-            const settingsStore = useSettingsStore();
-            const rss = computed(() => settingsStore.rss!);
-            // 新建页面跳转rss.value.FeedUrl
-            console.log(rss.value);
-
-            // window.open(rss.value.FeedUrl);
-        }
-    },
-    {
         path: '/manager',
         name: 'manager',
         component: () => import('@/views/admin/index.vue'),

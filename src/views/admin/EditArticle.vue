@@ -46,6 +46,9 @@ import { useRoute } from "vue-router";
 import { getArticleDetailApi, saveArticleApi } from "@/apis/article";
 import { getAllCategoryApi } from "@/apis/category";
 import { uploadImageApi } from "@/apis/image";
+import { useSettingsStore } from "@/store/settings";
+const settingsStore = useSettingsStore();
+const settings = computed(() => settingsStore.settings!);
 interface ArticleForm {
   id?: number;
   title: string;
@@ -97,6 +100,7 @@ const saveArticle = async () => {
   const res = await saveArticleApi(articleForm.value);
   if (res.code === 200) {
     message.success("保存成功");
+    articleForm.value.id = res.data.id;
   }
 };
 
@@ -111,7 +115,7 @@ const onUploadImg = async (files: any, callback: (urls: string[]) => void) => {
   // console.log(res);
   callback(
     res.map((item) => {
-      return import.meta.env.VITE_IMAGE_URL + item[0];
+      return settings.value.Domain + item[0];
     })
   );
 };

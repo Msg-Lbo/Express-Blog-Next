@@ -97,7 +97,7 @@ const isLoding = ref(true);
 watch(alias, () => {
   page.value = 1;
   if (alias.value && alias.value !== "search") {
-    console.log("alias", alias.value);
+    // console.log("alias", alias.value);
     getCategoryArticleList(alias.value!);
   }
 });

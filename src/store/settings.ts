@@ -1,8 +1,6 @@
 import {
     getSettingsApi,
     saveSettingsApi,
-    getRssApi,
-    saveRssApi,
     saveFriendTemplateApi,
     saveAboutApi,
     getCarouselApi,
@@ -32,16 +30,6 @@ interface Settings {
 
 }
 
-interface Rss {
-    RssTitle: string;
-    RssDesc: string;
-    FeedUrl: string;
-    SiteUrl: string;
-    Language: string;
-    CopyRight: string;
-    WebMaster: string;
-}
-
 interface Carousel {
     id: number,
     title: string,
@@ -64,15 +52,6 @@ export const useSettingsStore = defineStore("settings", () => {
         AllowRegister: false,
         About: "",
         FriendTemplate: "",
-    })
-    const rss = ref<Rss>({
-        RssTitle: "",
-        RssDesc: "",
-        FeedUrl: "",
-        SiteUrl: "",
-        Language: "",
-        CopyRight: "",
-        WebMaster: "",
     })
     const carousel = ref<Carousel[]>()
 
@@ -102,23 +81,6 @@ export const useSettingsStore = defineStore("settings", () => {
         if (res.code === 200) {
             message.success("保存成功");
             setFavicon(settings.value.Ico);
-        }
-    }
-
-
-    // 获取rss设置
-    const handleGetRss = async () => {
-        const res = await getRssApi();
-        if (res.code === 200) {
-            rss.value = res.data;
-        }
-    };
-
-    // 保存rss设置
-    const handleSaveRss = async () => {
-        const res = await saveRssApi(rss.value);
-        if (res.code === 200) {
-            message.success("保存成功");
         }
     }
 
@@ -172,12 +134,9 @@ export const useSettingsStore = defineStore("settings", () => {
 
     return {
         settings,
-        rss,
         carousel,
         handleGetSettings,
         handleSaveSettings,
-        handleGetRss,
-        handleSaveRss,
         handleSaveFriendTemplate,
         handleSaveAbout,
         handleGetCarousel,

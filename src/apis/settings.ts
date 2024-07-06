@@ -35,31 +35,6 @@ export const getSummaryApi = () => {
     });
 }
 
-// 获取rss
-export const getRssApi = () => {
-    return $http({
-        url: "/feed/get-rss",
-        method: "GET",
-    });
-}
-
-// 保存rss
-export const saveRssApi = (data: {
-    RssTitle: string
-    RssDesc: string
-    FeedUrl: string
-    SiteUrl: string
-    Language: string
-    CopyRight: string
-    WebMaster: string
-}) => {
-    return $http({
-        url: "/feed/save-rss",
-        method: "POST",
-        data,
-    });
-}
-
 // 保存友链模板
 export const saveFriendTemplateApi = (FriendTemplate: string) => {
     return $http({

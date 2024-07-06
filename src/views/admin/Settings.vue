@@ -93,44 +93,6 @@
         </n-form>
         <n-button type="success" @click="saveSettings()">保存</n-button>
       </n-tab-pane>
-      <n-tab-pane name="RSS设置" tab="RSS设置">
-        <n-form
-          ref="formRef"
-          :model="rss"
-          label-placement="top"
-          label-width="auto"
-          require-mark-placement="right-hanging"
-          size="small"
-          :style="{
-            Width: '100%',
-          }"
-        >
-          <n-grid :cols="24" :x-gap="24">
-            <n-form-item-gi :span="12" label="RSS标题" path="inputValue">
-              <n-input v-model:value="rss.RssTitle" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="RSS描述" path="inputValue">
-              <n-input v-model:value="rss.RssDesc" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="Feed链接" path="inputValue">
-              <n-input v-model:value="rss.FeedUrl" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="网站链接" path="inputValue">
-              <n-input v-model:value="rss.SiteUrl" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="语言(ps: zh-cn)" path="inputValue">
-              <n-input v-model:value="rss.Language" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="版权" path="inputValue">
-              <n-input v-model:value="rss.CopyRight" placeholder="Input" />
-            </n-form-item-gi>
-            <n-form-item-gi :span="12" label="网站管理员" path="inputValue">
-              <n-input v-model:value="rss.WebMaster" placeholder="Input" />
-            </n-form-item-gi>
-          </n-grid>
-        </n-form>
-        <n-button type="success" @click="saveRss()">保存</n-button>
-      </n-tab-pane>
       <n-tab-pane
         class="h-[calc(100vh-200px)]"
         name="轮播图设置"
@@ -251,7 +213,6 @@ const userInfoStore = useUserInfoStore();
 
 const settings = computed(() => settingsStore.settings!);
 const userinfo = computed(() => userInfoStore.userInfo!);
-const rss = computed(() => settingsStore.rss!);
 const message = useMessage();
 const fileInputRef = ref<HTMLInputElement | null>(null);
 const showModal = ref(false);
@@ -341,10 +302,6 @@ const uploadImg = async (file: any) => {
 const saveSettings = () => {
   settingsStore.handleSaveSettings();
 };
-// 保存Rss
-const saveRss = () => {
-  settingsStore.handleSaveRss();
-};
 // 保存友链模板
 const saveFriendTemplate = () => {
   settingsStore.handleSaveFriendTemplate();
@@ -389,7 +346,6 @@ const deleteCarousel = (id: number) => {
 };
 onMounted(() => {
   settingsStore.handleGetSettings();
-  settingsStore.handleGetRss();
   settingsStore.handleGetCarousel();
 });
 </script>

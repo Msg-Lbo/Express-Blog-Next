@@ -42,7 +42,6 @@ const sider = ref<any>();
 onMounted(() => {
   settingsStore.handleGetSettings();
   settingsStore.handleGetCarousel();
-  settingsStore.handleGetRss();
 });
 </script>
 

@@ -38,25 +38,6 @@
         </ul>
       </div>
     </div>
-    <!-- <div class="box">
-      <div class="name">标签</div>
-      <div class="list">
-        <ul>
-          <li class="item">
-            <router-link to="/tag/vue">Vue</router-link>
-            <span class="badge">2</span>
-          </li>
-          <li class="item">
-            <router-link to="/tag/react">React</router-link>
-            <span class="badge">2</span>
-          </li>
-          <li class="item">
-            <router-link to="/tag/javascript">JavaScript</router-link>
-            <span class="badge">2</span>
-          </li>
-        </ul>
-      </div>
-    </div> -->
   </main>
 </template>
 
