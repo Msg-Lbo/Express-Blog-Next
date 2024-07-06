@@ -1,7 +1,5 @@
 import { useUserInfoStore } from '@/store/user'
 import { createRouter, createWebHistory } from 'vue-router'
-import { useSettingsStore } from "@/store/settings";
-
 const routers = [
     {
         path: '/',
