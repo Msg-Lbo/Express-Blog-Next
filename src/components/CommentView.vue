@@ -221,7 +221,7 @@ onMounted(() => {
         }
       }
       .content {
-        @apply text-sm;
+        @apply text-sm whitespace-pre-wrap;
       }
       .chindren-list {
         @apply ml-2;
