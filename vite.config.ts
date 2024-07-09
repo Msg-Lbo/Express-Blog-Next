@@ -26,11 +26,10 @@ export default ({ mode }: ConfigEnv) => {
           target: 'http://127.0.0.1:9090',
           changeOrigin: false,
           // rewrite: (path) => path.replace(/^\/api\/v1/, '')
-
         },
         '/uploads': {
           target: 'http://127.0.0.1:9090',
-          changeOrigin: true,
+          changeOrigin: false,
           // rewrite: (path) => path.replace(/^\/uploads/, '')
         }
       }
