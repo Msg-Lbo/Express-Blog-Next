@@ -29,6 +29,20 @@
             </router-link>
           </div>
         </div>
+        <div class="menu-drawer-btn" @click="drawerVisible = true">
+          <menu-fold theme="outline" size="24" :strokeWidth="3" />
+        </div>
+        <div class="menu-drawer md:hidden">
+          <n-drawer class="md:hidden" v-model:show="drawerVisible" :width="200" placement="right">
+            <n-drawer-content title="导航">
+              <div class="menu-drawer-content">
+                <div class="menu-drawer-item" v-for="item in menuOptions" :key="item.alias" @click="toPath(item.alias)">
+                  <router-link to="">{{ item.label }}</router-link>
+                </div>
+              </div>
+            </n-drawer-content>
+          </n-drawer>
+        </div>
       </div>
     </header>
   </main>
@@ -37,16 +51,18 @@
 <script setup lang="ts">
 import router from "@/router";
 import { useRoute } from "vue-router";
-import {getActiveNavigationsApi} from "@/apis/navigations";
+import { getActiveNavigationsApi } from "@/apis/navigations";
 import { useSettingsStore } from "@/store/settings";
 import { useUserInfoStore } from "@/store/user";
+import { MenuFold } from "@icon-park/vue-next";
 const route = useRoute();
 const settingsStore = useSettingsStore();
 const userInfoStore = useUserInfoStore();
 const settings = computed(() => settingsStore.settings);
 const userInfo = computed(() => userInfoStore.userInfo);
 const activeKey = ref<string | null>(route.path);
-const manager = computed(() => [  
+const drawerVisible = ref(false);
+const manager = computed(() => [
   {
     label: "管理",
     alias: "manager",
@@ -60,14 +76,12 @@ const manager = computed(() => [
 ]);
 const menuOptions = ref();
 
-
 // 获取导航数据
 const getNavigations = async () => {
   const res = await getActiveNavigationsApi();
   if (res.code === 200) {
     menuOptions.value = res.data;
   }
-
 };
 const toPath = (alias: string) => {
   if (alias.startsWith("https")) {
@@ -79,7 +93,7 @@ const toPath = (alias: string) => {
 };
 onMounted(() => {
   getNavigations();
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -95,7 +109,7 @@ onMounted(() => {
     }
   }
   .menu-list {
-    @apply flex items-center justify-end gap-1;
+    @apply hidden md:flex items-center justify-end gap-1;
     .menu-item {
       @apply flex items-center justify-center;
       a {
@@ -106,12 +120,8 @@ onMounted(() => {
       @apply text-blue-500;
     }
   }
-}
-
-// 如果宽度小于 768px
-@media (max-width: 768px) {
-  .header-view {
-    @apply justify-center;
+  .menu-drawer-btn {
+    @apply md:hidden fixed top-0 right-0 z-50 h-10 w-10 flex items-center justify-center;
   }
 }
 </style>

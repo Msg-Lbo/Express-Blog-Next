@@ -59,13 +59,9 @@
   </main>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
 import { getAllArticleApi } from "@/apis/article";
 import { getArticlesByCategoryApi } from "@/apis/category";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import { useRouter } from "vue-router";
-import { useMessage } from "naive-ui";
+import { useRouter, useRoute } from "vue-router";
 import { useArticleStore } from "@/store/article";
 import { storeToRefs } from "pinia";
 
@@ -81,7 +77,7 @@ interface Article {
   description: string;
   read_count: number;
   comment_count: number;
-  top:number;
+  top: number;
   create_time: string;
   update_time: string | null;
 }

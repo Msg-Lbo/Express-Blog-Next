@@ -30,10 +30,10 @@
       />
       <n-divider dashed style="margin: 10px 0" />
       <n-space justify="space-between">
-        <n-button type="primary" text :disabled="!articleInfo.pre_id" @click="getPreOrNext(articleInfo.pre_id)">
+        <n-button class="overflow-hidden w-full" type="primary" text :disabled="!articleInfo.pre_id" @click="getPreOrNext(articleInfo.pre_id)">
           上一篇: {{ articleInfo.pre_title || "无" }}
         </n-button>
-        <n-button type="primary" text :disabled="!articleInfo.next_id" @click="getPreOrNext(articleInfo.next_id)">
+        <n-button class="overflow-hidden w-full" type="primary" text :disabled="!articleInfo.next_id" @click="getPreOrNext(articleInfo.next_id)">
           下一篇: {{ articleInfo.next_title || "无" }}
         </n-button>
       </n-space>
