@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="flex gap-2">
     <div class="preview-container">
       <div class="perview-title">
         <p class="title">{{ articleInfo.title }}</p>
@@ -22,7 +22,12 @@
           </span>
         </div>
       </div>
-      <MdPreview :modelValue="articleInfo.content" previewTheme="github" />
+      <MdPreview
+        editorId="md-id"
+        :modelValue="articleInfo.content"
+        @onGetCatalog="onGetCatalog"
+        previewTheme="github"
+      />
       <n-divider dashed style="margin: 10px 0" />
       <n-space justify="space-between">
         <n-button type="primary" text :disabled="!articleInfo.pre_id" @click="getPreOrNext(articleInfo.pre_id)">
@@ -34,6 +39,10 @@
       </n-space>
       <comment-view :article-id="articleInfo.id.toString()"></comment-view>
     </div>
+    <div class="catalog-container">
+      <div class="text-lg mb-2 font-bold">目录</div>
+      <MdCatalog editorId="md-id" :scrollElement="scrollElement" />
+    </div>
     <n-float-button :right="60" :bottom="60" shape="square" @click="handleToTop">
       <to-top theme="outline" size="16" :strokeWidth="3" />
     </n-float-button>
@@ -42,7 +51,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { MdPreview } from "md-editor-v3";
+import { MdPreview, MdCatalog } from "md-editor-v3";
 import CommentView from "@/components/CommentView.vue";
 import { ToTop } from "@icon-park/vue-next";
 import "md-editor-v3/lib/style.css";
@@ -79,14 +88,22 @@ const articleInfo = ref<Article>({
   create_time: 0,
   update_time: 0,
 });
+const catalogList = ref<any[]>([]);
 const id = ref<string>(route.path.split("/").pop()!);
+const scrollElement = document.documentElement;
+
 // 获取文章详情
 const getArticleDetail = async (id: number) => {
   const res = await getArticleDetailApi(id);
   if (res.code === 200) {
-    articleInfo.value = res.data
+    articleInfo.value = res.data;
     articleInfo.value.tags = res.data.tags?.split(",") || [];
   }
+};
+
+// 获取目录
+const onGetCatalog = (list: any[]) => {
+  catalogList.value = list;
 };
 
 // 修改路由
@@ -107,7 +124,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .preview-container {
-  @apply p-4;
+  @apply p-4 w-full;
   .perview-title {
     @apply mb-4;
 
@@ -129,6 +146,9 @@ onMounted(() => {
       }
     }
   }
+}
+.catalog-container {
+  @apply w-[200px] fixed top-[200px] right-[50px] bg-slate-100 p-3 rounded-md hidden md:block;
 }
 .float-button {
   @apply fixed bottom-4 right-4;
