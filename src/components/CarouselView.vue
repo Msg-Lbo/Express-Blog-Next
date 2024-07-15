@@ -1,16 +1,26 @@
 <template>
   <main>
-    <n-carousel style="height: 150px; width: 100%">
+    <n-carousel style="height: 150px; width: 100%" :autoplay="true" :interval="3000">
       <div class="relative" v-for="item in Carousel" :key="item.id">
-        <n-image width="100%" class="w-[100%] h-[150px] flex justify-center relative" lazy object-fit="cover" preview-disabled :src="item.cover">
+        <n-image
+          width="100%"
+          class="w-[100%] h-[150px] flex justify-center relative"
+          lazy
+          object-fit="cover"
+          preview-disabled
+          :src="item.cover"
+        >
           <template #placeholder>
             <div class="w-[100%] h-[150px] flex items-center justify-center bg-slate-400">
               <loading theme="outline" size="18" class="animate-spin text-slate-300" />
             </div>
           </template>
         </n-image>
-        <div class="absolute bottom-0 left-0 p-2 w-full h-full flex justify-between items-end" @click="toPath(item.link)">
-          <span class="text-center text-white text-lg font-bold">
+        <div
+          class="absolute bottom-0 left-0 p-2 w-full h-full flex justify-between items-end"
+          @click="toPath(item.link)"
+        >
+          <span class="text-center text-white text-lg font-bold bg-slate-500 p-2 rounded-md">
             {{ item.title }}
           </span>
         </div>
@@ -36,7 +46,8 @@ const Carousel = ref(props.Carousel);
 
 const toPath = (link: string) => {
   window.open(link, "_blank");
-}
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
