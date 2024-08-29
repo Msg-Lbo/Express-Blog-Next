@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="header">
+    <div class="header" :style="{top: isHeaderHidden? '-40px' : '0px'}">
       <header-view></header-view>
     </div>
     <div class="container">
@@ -38,16 +38,37 @@ const mainRouter = computed(() => route.path.split("/")[1]);
 const disabledPath = ["detail", "login", "about"];
 
 const sider = ref<any>();
+const isHeaderHidden = ref(false);
+let lastScrollPosition = 0;
+const handleScroll = () => {
+  const currentScrollPosition = window.scrollY;
+
+  if (currentScrollPosition < lastScrollPosition) {
+    // 向上滚动
+    isHeaderHidden.value = false;
+  } else {
+    // 向下滚动
+    isHeaderHidden.value = true;
+  }
+
+  lastScrollPosition = currentScrollPosition;
+};
 
 onMounted(() => {
   settingsStore.handleGetSettings();
   settingsStore.handleGetCarousel();
+  window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+  sider.value = null;
 });
 </script>
 
 <style lang="scss" scoped>
 .header {
-  @apply fixed top-0 left-0 w-full min-h-[40px] px-5 shadow-sm text-sm z-10 bg-[#3E4454] text-white;
+  @apply fixed top-0 left-0 w-full min-h-[40px] px-5 shadow-sm text-sm z-10 bg-[#3E4454] text-white duration-300 ease-in-out;
 }
 
 .container {

@@ -122,7 +122,7 @@ const getCategoryArticleList = async (alias: string) => {
       return;
     }
     articleList.value = res.data.list;
-    total.value = res.data.total / pageSize.value;
+    total.value = Math.ceil(res.data.total / pageSize.value);
   }
   isLoding.value = false;
 };
@@ -137,7 +137,7 @@ const getArticleList = async () => {
       return;
     }
     articleList.value = res.data.list;
-    total.value = res.data.total / pageSize.value;
+    total.value = Math.ceil(res.data.total / pageSize.value);
   }
   isLoding.value = false;
 };

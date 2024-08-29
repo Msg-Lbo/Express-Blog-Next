@@ -21,7 +21,18 @@ export default ({ mode }: ConfigEnv) => {
     // base: basePublicPath,
     server: {
       host: '0.0.0.0',
-      proxy: {}
+      proxy: {
+        '/api/v1': {
+          target: 'https://api.ylmty.cc',
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/api\/v1/, '')
+        },
+        '/uploads': {
+          target: 'https://api.ylmty.cc',
+          changeOrigin: true,
+          // rewrite: (path) => path.replace(/^\/uploads/, '')
+        }
+      }
     },
     build: {
       outDir: basePublicPath, // 指定输出文件夹路径
