@@ -5,7 +5,7 @@
       <n-divider dashed style="margin: 10px 0" />
       <div class="content">
         <div class="link-card" tag="a" v-for="(item, index) in friendList" :key="index" @click="toLink(item.link)">
-          <n-avatar size="large" :src="item.logo" />
+          <n-avatar size="large" :src="item.logo" :fallback-src="settings.Avatar" />
           <div class="info">
             <p class="name line">
               <n-ellipsis :line-clamp="1">{{ item.name }}</n-ellipsis>
