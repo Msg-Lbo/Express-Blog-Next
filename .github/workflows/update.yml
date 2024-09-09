@@ -33,5 +33,5 @@ jobs:
           server: ${{ secrets.IP }} # 远程服务器IP地址
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # 认证服务器秘钥对的私钥
           local_path: './dist/*' # 对应我们项目打包后的静态文件路径
-          remote_path: '/www/wwwroot/blog.ylmty.cc' # 服务器上的路径
+          remote_path: '/opt/1panel/apps/openresty/openresty/www/sites/blog.ylmty.cc/index' # 服务器上的路径
           delete_remote_files: true # 是否删除远程服务器上的文件
