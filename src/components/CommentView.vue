@@ -68,7 +68,6 @@ interface Comment {
   nickname: string;
   parent_id: number | string;
   children: Comment[];
-  reply_email?: string;
 }
 interface CommentForm {
   article_id: number | string;
