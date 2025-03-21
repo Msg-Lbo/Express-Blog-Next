@@ -6,13 +6,7 @@
           <n-input v-model:value="commentForm.nickname" minlength="2" maxlength="10" placeholder="昵称" size="small" />
           <n-input v-model:value="commentForm.email" minlength="2" maxlength="20" placeholder="邮箱" size="small" />
         </n-space>
-        <n-input
-          ref="commentInputRef"
-          v-model:value="commentForm.content"
-          maxlength="200"
-          type="textarea"
-          placeholder="基本的 Textarea"
-        />
+        <n-input ref="commentInputRef" v-model:value="commentForm.content" maxlength="200" type="textarea" placeholder="基本的 Textarea" />
         <n-space justify="start" align="center">
           <div class="captcha-svg" v-html:value="captcha" @click="getCaptcha"></div>
           <n-input v-model:value="commentForm.code" minlength="4" maxlength="4" placeholder="验证码" size="small" />
@@ -32,7 +26,7 @@
             <span class="time">
               <n-time :time="item.create_time" format="yyyy-MM-dd hh:mm"></n-time>
             </span>
-            <span class="reply" @click="replyComment(item.id, item.nickname)">回复</span>
+            <span class="reply" @click="replyComment(item)">回复</span>
           </div>
           <div class="content">{{ item.content }}</div>
           <div class="chindren-list">
@@ -45,7 +39,7 @@
                 <span class="time">
                   <n-time :time="children.create_time" format="yyyy-MM-dd hh:mm"></n-time>
                 </span>
-                <span class="reply" @click="replyComment(item.id, children.nickname)">回复</span>
+                <span class="reply" @click="replyComment(children)">回复</span>
               </div>
               <div class="content">{{ children.content }}</div>
             </div>
@@ -109,6 +103,7 @@ const commentForm = ref<CommentForm>({
   nickname: userInfo.value?.nickname,
   identity: userInfo.value?.identity,
   parent_id: 0,
+  reply_email: "",
   code: "",
 });
 
@@ -127,9 +122,10 @@ const getComments = async (article_id: number | string) => {
 };
 
 // 回复评论
-const replyComment = (parent_id: number | string, nickname: string) => {
-  commentForm.value.parent_id = parent_id;
-  commentForm.value.content = `@${nickname} `;
+const replyComment = (item: obj) => {
+  commentForm.value.parent_id = item.parent_id;
+  commentForm.value.content = `@${item.nickname} `;
+  commentForm.value.reply_email = item.email;
   commentInputRef.value?.focus();
 };
 
@@ -188,18 +184,23 @@ onMounted(() => {
 <style lang="scss" scoped>
 .send-comment {
   @apply w-full my-2;
+
   .title {
     @apply text-xl font-bold mb-4;
   }
+
   .form {
     @apply flex flex-col gap-1;
   }
 }
+
 .comments-list {
   @apply w-full my-2;
+
   .title {
     @apply text-sm font-bold mb-4;
   }
+
   .list {
     .item {
       @apply my-4;
@@ -210,21 +211,27 @@ onMounted(() => {
         .nickname {
           @apply text-green-600;
         }
+
         .admin {
           @apply text-red-600;
         }
+
         .time {
           @apply h-6 leading-7 text-gray-500;
         }
+
         .reply {
           @apply cursor-pointer hover:text-[#409eff];
         }
       }
+
       .content {
         @apply text-sm whitespace-pre-wrap;
       }
+
       .chindren-list {
         @apply ml-2;
+
         .item-children {
           @apply my-2;
         }
