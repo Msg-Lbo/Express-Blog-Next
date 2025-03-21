@@ -23,60 +23,54 @@ const renderIcon = (icon: Component) => {
 };
 const router = useRouter();
 const activeKey = ref<string | null>(null);
-const menuOptions = ref([
-  {
-    label: "文章管理",
-    key: "article-manager",
-    icon: renderIcon(Book),
-    children: [
-      {
-        label: "文章列表",
-        key: "article-list",
-        icon: renderIcon(BookOpen),
-      },
-      {
-        label: "添加文章",
-        key: "edit-article",
-        icon: renderIcon(Pencil),
-      },
-    ],
-  },
-  {
-    label: "分类管理",
-    key: "category-manager",
-    icon: renderIcon(AllApplication),
-  },
-  {
-    label: "图片管理",
-    key: "image-manager",
-    icon: renderIcon(ImageFiles),
-  },
-  {
-    label: "导航管理",
-    key: "navigation-manager",
-    icon: renderIcon(Navigation),
-  },
-  {
-    label: "标签管理",
-    key: "tag-manager",
-    icon: renderIcon(TagOne),
-  },
-  {
-    label: "评论管理",
-    key: "comment-manager",
-    icon: renderIcon(Comment),
-  },
-  {
-    label: "友链管理",
-    key: "link-manager",
-    icon: renderIcon(Link),
-  },
-  {
-    label: "设置",
-    key: "settings",
-    icon: renderIcon(Setting),
-  },
-]);
+interface MenuOption {
+  label: string
+  key: string
+  icon: ReturnType<typeof renderIcon>
+}
+
+const menuOptions = ref<MenuOption[]>([])
+
+// 从router中获取管理菜单
+const generateMenuOptions = () => {
+  const adminRoutes = router.options.routes.find(
+    route => route.path === '/manager'
+  )?.children || []
+
+  const options = adminRoutes
+    .filter(route => {
+      if (!route.meta || !route.name) return false
+      return route.meta.title && route.name !== 'manager'
+    })
+    .map(route => ({
+      label: route.meta!.title as string,
+      key: route.name as string,
+      icon: renderIcon(getMenuIcon(route.name as string))
+    }))
+
+  menuOptions.value = options
+}
+
+// 根据路由名称获取对应图标
+const getMenuIcon = (name: string): Component => {
+  type IconMap = Record<string, Component>
+  const iconMap: IconMap = {
+    'article-list': BookOpen,
+    'edit-article': Pencil,
+    'category-manager': AllApplication,
+    'image-manager': ImageFiles,
+    'navigation-manager': Navigation,
+    'tag-manager': TagOne,
+    'comment-manager': Comment,
+    'link-manager': Link,
+    'settings': Setting,
+    'seo': Book
+  }
+  return iconMap[name] || Book
+}
+
+// 初始化时生成菜单
+generateMenuOptions()
 
 const onUpdate = (value: string) => {
   activeKey.value = value;
@@ -84,4 +78,8 @@ const onUpdate = (value: string) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@use "sass:math";
+
+// Add any necessary SCSS styles here
+</style>

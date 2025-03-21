@@ -146,6 +146,14 @@ const routers = [
                 meta: {
                     title: '设置'
                 }
+            },
+            {
+                path: 'logs',
+                name: 'logs',
+                component: () => import('@/views/admin/LogList.vue'),
+                meta: {
+                    title: '日志管理'
+                }
             }
         ]
     },

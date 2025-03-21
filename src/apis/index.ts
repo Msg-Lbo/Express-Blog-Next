@@ -70,13 +70,15 @@ export const $http = async (config: AxiosRequestConfig) => {
                 message.error(bkResponse.msg || "服务器内部错误")
                 // router.push('/result/500')
             } else {
+                console.log(bkResponse);
+                
                 errTitle = 'Unknow Error'
                 message.error(bkResponse.msg || "未知错误")
             }
             const err = new Error(bkResponse.msg || "Unknow Error") as AxiosError
             err.name = errTitle
             // 抛出错误
-            // throw err
+            throw err
         }
         loadingBar.finish()
         return bkResponse
