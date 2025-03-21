@@ -78,6 +78,7 @@ interface CommentForm {
   nickname: string;
   parent_id: number | string;
   code: string;
+  reply_email: string;
 }
 const props = defineProps({
   articleId: {
@@ -122,7 +123,7 @@ const getComments = async (article_id: number | string) => {
 };
 
 // 回复评论
-const replyComment = (item: obj) => {
+const replyComment = (item: CommentForm) => {
   commentForm.value.parent_id = item.parent_id;
   commentForm.value.content = `@${item.nickname} `;
   commentForm.value.reply_email = item.email;
