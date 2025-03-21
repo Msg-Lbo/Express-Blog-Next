@@ -63,7 +63,7 @@ interface Comment {
   article_id: number;
   content: string;
   create_time: number;
-  email: number;
+  email: string;
   identity?: string;
   nickname: string;
   parent_id: number | string;
