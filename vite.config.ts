@@ -23,14 +23,14 @@ export default ({ mode }: ConfigEnv) => {
       host: '0.0.0.0',
       proxy: {
         '/api/v1': {
-          // target: 'https://api.ylmty.cc',
-          target: 'http://127.0.0.1:9090',
+          target: 'https://api.ylmty.cc',
+          // target: 'http://127.0.0.1:9090',
           changeOrigin: true,
           // rewrite: (path) => path.replace(/^\/api\/v1/, '')
         },
         '/uploads': {
-          // target: 'https://api.ylmty.cc',
-          target: 'http://127.0.0.1:9090',
+          target: 'https://api.ylmty.cc',
+          // target: 'http://127.0.0.1:9090',
           changeOrigin: true,
           // rewrite: (path) => path.replace(/^\/uploads/, '')
         }
