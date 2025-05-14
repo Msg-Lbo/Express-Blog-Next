@@ -86,6 +86,9 @@ const getNavigations = async () => {
 const toPath = (alias: string) => {
   if (alias.startsWith("https")) {
     window.open(alias);
+  } else if (alias === '' || alias === 'home') {
+    activeKey.value = '';
+    router.push('/');
   } else {
     activeKey.value = alias;
     router.push(`/${alias}`);

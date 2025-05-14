@@ -101,7 +101,7 @@ watch(alias, () => {
 watch(
   () => route.path,
   (newVal) => {
-    if (newVal === "/") {
+    if (newVal === "//") {
       getArticleList();
     }
   }
