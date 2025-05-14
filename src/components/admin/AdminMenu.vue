@@ -16,39 +16,70 @@ import {
   Link,
   Setting,
   Navigation,
+  Home
 } from "@icon-park/vue-next";
 import { useRouter } from "vue-router";
+import type { MenuOption } from "naive-ui";
+
 const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) });
 };
+
 const router = useRouter();
 const activeKey = ref<string | null>(null);
-interface MenuOption {
-  label: string
-  key: string
-  icon: ReturnType<typeof renderIcon>
-}
 
-const menuOptions = ref<MenuOption[]>([])
+const menuOptions = ref<MenuOption[]>([]);
 
 // 从router中获取管理菜单
 const generateMenuOptions = () => {
   const adminRoutes = router.options.routes.find(
     route => route.path === '/manager'
-  )?.children || []
+  )?.children || [];
 
-  const options = adminRoutes
-    .filter(route => {
-      if (!route.meta || !route.name) return false
-      return route.meta.title && route.name !== 'manager'
-    })
-    .map(route => ({
-      label: route.meta!.title as string,
-      key: route.name as string,
-      icon: renderIcon(getMenuIcon(route.name as string))
-    }))
+  const options: MenuOption[] = [];
 
-  menuOptions.value = options
+  adminRoutes.forEach(route => {
+    if (!route.meta) return;
+
+    // 处理文章管理特殊情况（有子菜单）
+    if (route.children && route.meta.title === '文章管理') {
+      const children: MenuOption[] = [];
+      
+      route.children.forEach(child => {
+        if (child.meta?.title && child.name) {
+          children.push({
+            label: child.meta.title as string,
+            key: child.name as string,
+            icon: renderIcon(getMenuIcon(child.name as string))
+          });
+        }
+      });
+
+      options.push({
+        label: route.meta.title as string,
+        key: route.children[0].name as string, // 默认选中第一个子菜单
+        icon: renderIcon(Book),
+        children
+      });
+    } 
+    // 处理普通菜单项
+    else if (route.meta.title && route.name && route.name !== 'manager') {
+      options.push({
+        label: route.meta.title as string,
+        key: route.name as string,
+        icon: renderIcon(getMenuIcon(route.name as string))
+      });
+    }
+  });
+
+  // 添加返回首页按钮
+  options.push({
+    label: '返回首页',
+    key: 'back-to-home',
+    icon: renderIcon(Home)
+  });
+
+  menuOptions.value = options;
 }
 
 // 根据路由名称获取对应图标
@@ -74,7 +105,11 @@ generateMenuOptions()
 
 const onUpdate = (value: string) => {
   activeKey.value = value;
-  router.push({ name: value });
+  if (value === 'back-to-home') {
+    router.push('/');
+  } else {
+    router.push({ name: value });
+  }
 };
 </script>
 

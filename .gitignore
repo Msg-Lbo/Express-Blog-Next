@@ -27,3 +27,7 @@ dist-ssr
 package-lock.json
 pnpm-lock.yaml
 1.js
+规则说明.md
+develop.md
+.cursor
+working.md
